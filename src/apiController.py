@@ -44,7 +44,7 @@ def request(url, header, params):
         elif status_code == 304:
             return False
     except Exception as e:
-        print('Função: request')
+        print("Função: request")
         print(e)
         return False
 
@@ -138,26 +138,24 @@ def get_statistic(row):
             _corners_g += 1
 
     host = {
-        "id": row.get("id"),
+        # "id": row.get("id"),
         "time": _events_graph.get("status"),
         "league_name": _league.get("fn"),
-        "host": _host.get("n"),
-        "guest": _guest.get("n"),
+        "name": _host.get("n"),
         "on_target": _plus.get("hso", 0),
         "off_target": _plus.get("hsf", 0),
         "danger_attack": _plus.get("hd", 0),
         "attacks": _plus.get("ha", 0),
-        "possessions":  _plus.get("hqq", 0),
+        "possessions": _plus.get("hqq", 0),
         "corners": _corners_h,
         "goals": _goals_h,
     }
 
     guest = {
-        "id": row.get("id"),
+        # "id": row.get("id"),
         "time": _events_graph.get("status"),
         "league_name": _league.get("fn"),
-        "host": _host.get("n"),
-        "guest": _guest.get("n"),
+        "name": _guest.get("n"),
         "on_target": _plus.get("gso", 0),
         "off_target": _plus.get("gsf", 0),
         "danger_attack": _plus.get("gd", 0),
@@ -239,6 +237,72 @@ def remove_statistic(statistics, id_statistic):
             statistics.pop(index)
 
     return statistics
+
+
+class League:
+    def __init__(self, league):
+        self.league_id = (league.get("id"),)
+        self._league = league.get("league")
+        self._events_graph = league.get("events_graph")
+        self._events = self._events_graph.get("events", [])
+        self._host = league.get("host")
+        self._guest = league.get("guest")
+        self._plus = league.get("plus")
+        self._goals_h = 0
+        self._goals_g = 0
+        self._corners_h = 0
+        self._corners_g = 0
+
+        # TODO: Remover essa parte do código
+        for event in self._events:
+            event_type = event.get("t")
+            if event_type == "hg":
+                self._goals_h += 1
+
+            elif event_type == "gg":
+                self._goals_g += 1
+
+            elif event_type == "hc":
+                self._corners_h += 1
+
+            elif event_type == "gc":
+                self._corners_g += 1
+
+    def host(self):
+        host = {
+            "time": self._events_graph.get("status"),
+            "league_name": self._league.get("fn"),
+            "name": self._host.get("n"),
+            "on_target": self._plus.get("hso", 0),
+            "off_target": self._plus.get("hsf", 0),
+            "danger_attack": self._plus.get("hd", 0),
+            "attacks": self._plus.get("ha", 0),
+            "possessions": self._plus.get("hqq", 0),
+            "corners": self.corners("hc"),
+            "goals": self.goals("hg"),
+        }
+        return host
+
+    def guest(self):
+        pass
+
+    def goals(self, team):
+        goals = 0
+        for event in self._events:
+            type = event.get("t")
+
+            if type == team:
+                goals += 1
+        return goals
+
+    def corners(self, team):
+        corners = 0
+        for event in self._events:
+            type = event.get("t")
+
+            if type == team:
+                corners += 1
+        return corners
 
 
 class Team:

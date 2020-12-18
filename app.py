@@ -1,22 +1,15 @@
-import logging
 import threading
 
 from src.message import *
 from src.apiController import *
 from config import TELEGRAM_TOKEN, BASE_API_URL
 
-logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
-)
-
-logger = logging.getLogger()
-
-lives_id = []
+# Guarda o id dos jogos que já tiveram seu alerta emitido
+repeated = []
 
 
-def start():
+def bot():
     send_message(TELEGRAM_TOKEN, 325105532, f"Estou on!")
-    url = "https://lv.scorebing.com/ajax/score/data"
 
     header = {
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.75 Safari/537.36",
@@ -28,9 +21,9 @@ def start():
 
     try:
         while True:
-            rec = request(url, header, params)
+            rec = request(BASE_API_URL, header, params)
             if rec:
-                data = request(url, header, params)
+                data = rec
                 for item in data:
                     live = is_live(item)
                     if live:
@@ -85,12 +78,11 @@ def start():
                                 opportunity_goals_h,
                             )
                             send_message(TELEGRAM_TOKEN, 325105532, message)
-                            logger.info("Menssagem enviada")
 
     except Exception as e:
-        logger.warning("Deu ruim!!!")
+        print("Erro: Bot")
         send_message(TELEGRAM_TOKEN, 325105532, f"Erro no programa\n{e}")
 
 
-x = threading.Thread(target=start)
-x.start()
+if __name__ == "__main__":
+    threading.Thread(target=bot).start()
