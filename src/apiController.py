@@ -137,35 +137,37 @@ def get_statistic(row):
         elif event_type == "gc":
             _corners_g += 1
 
-    on_target = {"hso": _plus.get("hso", 0), "gso": _plus.get("gso", 0)}
-
-    off_target = {"hsf": _plus.get("hsf", 0), "gsf": _plus.get("gsf", 0)}
-
-    danger_attacks = {"hd": _plus.get("hd", 0), "gd": _plus.get("gd", 0)}
-
-    attacks = {"ha": _plus.get("ha", 0), "ga": _plus.get("ga", 0)}
-
-    possessions = {"hqq": _plus.get("hqq", 0), "gqq": _plus.get("gqq", 0)}
-
-    corners = {"hc": _corners_h, "gc": _corners_g}
-
-    goals = {"hg": _goals_h, "gg": _goals_g}
-
-    data = {
+    host = {
         "id": row.get("id"),
         "time": _events_graph.get("status"),
         "league_name": _league.get("fn"),
         "host": _host.get("n"),
         "guest": _guest.get("n"),
-        "on_target": on_target,
-        "off_target": off_target,
-        "danger_attack": danger_attacks,
-        "attacks": attacks,
-        "possessions": possessions,
-        "corners": corners,
-        "goals": goals,
+        "on_target": _plus.get("hso", 0),
+        "off_target": _plus.get("hsf", 0),
+        "danger_attack": _plus.get("hd", 0),
+        "attacks": _plus.get("ha", 0),
+        "possessions":  _plus.get("hqq", 0),
+        "corners": _corners_h,
+        "goals": _goals_h,
     }
-    return data
+
+    guest = {
+        "id": row.get("id"),
+        "time": _events_graph.get("status"),
+        "league_name": _league.get("fn"),
+        "host": _host.get("n"),
+        "guest": _guest.get("n"),
+        "on_target": _plus.get("gso", 0),
+        "off_target": _plus.get("gsf", 0),
+        "danger_attack": _plus.get("gd", 0),
+        "attacks": _plus.get("ga", 0),
+        "possessions": _plus.get("gqq", 0),
+        "corners": _corners_g,
+        "goals": _goals_g,
+    }
+
+    return host, guest
 
 
 def update_statistic(last_update, new_statistic):
