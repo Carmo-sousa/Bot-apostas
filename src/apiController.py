@@ -15,15 +15,6 @@ def posse_de_bola(posse):
     else:
         return False
 
-
-# def apm(tempo, qnt_ataques_perigosos, condicao_apm):
-#     apm = qnt_ataques_perigosos / tempo
-#     if apm >= condicao_apm:
-#         return apm
-#     else:
-#         return False
-
-
 def apm(tempo, qnt_ataques_perigosos):
     apm = int(qnt_ataques_perigosos) / int(tempo)
     return apm
@@ -75,6 +66,7 @@ def in_list(list, id_league):
         return False
 
 
+# TODO: Mover para o arquivo message.py
 def mount_message(
     type_message,
     league,
@@ -237,88 +229,3 @@ def remove_statistic(statistics, id_statistic):
             statistics.pop(index)
 
     return statistics
-
-
-class League:
-    def __init__(self, league):
-        self.league_id = (league.get("id"),)
-        self._league = league.get("league")
-        self._events_graph = league.get("events_graph")
-        self._events = self._events_graph.get("events", [])
-        self._host = league.get("host")
-        self._guest = league.get("guest")
-        self._plus = league.get("plus")
-        self._goals_h = 0
-        self._goals_g = 0
-        self._corners_h = 0
-        self._corners_g = 0
-
-        # TODO: Remover essa parte do código
-        for event in self._events:
-            event_type = event.get("t")
-            if event_type == "hg":
-                self._goals_h += 1
-
-            elif event_type == "gg":
-                self._goals_g += 1
-
-            elif event_type == "hc":
-                self._corners_h += 1
-
-            elif event_type == "gc":
-                self._corners_g += 1
-
-    def host(self):
-        host = {
-            "time": self._events_graph.get("status"),
-            "league_name": self._league.get("fn"),
-            "name": self._host.get("n"),
-            "on_target": self._plus.get("hso", 0),
-            "off_target": self._plus.get("hsf", 0),
-            "danger_attack": self._plus.get("hd", 0),
-            "attacks": self._plus.get("ha", 0),
-            "possessions": self._plus.get("hqq", 0),
-            "corners": self.corners("hc"),
-            "goals": self.goals("hg"),
-        }
-        return host
-
-    def guest(self):
-        pass
-
-    def goals(self, team):
-        goals = 0
-        for event in self._events:
-            type = event.get("t")
-
-            if type == team:
-                goals += 1
-        return goals
-
-    def corners(self, team):
-        corners = 0
-        for event in self._events:
-            type = event.get("t")
-
-            if type == team:
-                corners += 1
-        return corners
-
-
-class Team:
-    def __init__(self, team: dict):
-        self._league = team["league_name"]
-        self._status = team["time"]
-        self._name = team["name"]
-        self._goals = team["goals"]
-        self._on_target = team["on_target"]
-        self._off_garget = team["off_target"]
-        self._danger_attack = team["danger_attack"]
-        self._corners = team["corners"]
-        self._possessions = team["possessions"]
-
-    def apm(self):
-        return int(self._danger_attack) / int(self._status)
-
-    def opportunity_goals(self):
-        return int(self._corners) + int(self._on_target) + int(self._off_garget)
