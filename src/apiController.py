@@ -1,13 +1,12 @@
 """
-Description:    Responsável por enviar uma requisição para https://lv.scorebing.com/ajax/score/data e
-                tratar os dados.
+Description:Responsável por enviar uma requisição para https://lv.scorebing.com/ajax/score/data e
+            tratar os dados.
 
 autor: romulocarmos@gmail.com
 """
 import requests
 import time
 import threading
-import logging
 
 
 def posse_de_bola(posse):
@@ -50,9 +49,9 @@ def request(url, header, params):
         return False
 
 
-def is_live(r):
-    status = r.get("status", False)
-    league = r.get("league", False)
+def is_live(row):
+    status = row.get("status", False)
+    league = row.get("league", False)
 
     if (
         not status
@@ -66,7 +65,7 @@ def is_live(r):
     if not league:
         return False
 
-    return r
+    return row
 
 
 def in_list(list, id_league):
@@ -238,3 +237,22 @@ def remove_statistic(statistics, id_statistic):
             statistics.pop(index)
 
     return statistics
+
+
+class Team:
+    def __init__(self, team: dict):
+        self._league = team["league_name"]
+        self._status = team["time"]
+        self._name = team["name"]
+        self._goals = team["goals"]
+        self._on_target = team["on_target"]
+        self._off_garget = team["off_target"]
+        self._danger_attack = team["danger_attack"]
+        self._corners = team["corners"]
+        self._possessions = team["possessions"]
+
+    def apm(self):
+        return int(self._danger_attack) / int(self._status)
+
+    def opportunity_goals(self):
+        return int(self._corners) + int(self._on_target) + int(self._off_garget)
