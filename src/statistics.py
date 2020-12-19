@@ -28,7 +28,7 @@ class Statistics:
             "on_target": self._plus.get("gso", 0),
             "off_target": self._plus.get("gsf", 0),
             "danger_attack": self._plus.get("gd", 0),
-            "attack": self._plus.get("ga", 0),
+            "attacks": self._plus.get("ga", 0),
             "possession": self._plus.get("gqq", 0),
             "corners": self.events("gc"),
             "goals": self.events("gg"),
