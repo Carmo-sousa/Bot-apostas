@@ -1,15 +1,16 @@
+import time
+
 from src.message import *
 from src.api import *
 from src.statistics import Statistics
 from src.team import Team
-from config import TELEGRAM_TOKEN, BASE_API_URL, header, params
+from config import CHAT_ID_TEST, TELEGRAM_TOKEN, BASE_API_URL, header, params
 
 # Guarda o id dos jogos que já tiveram seu alerta emitido
 repeated = []
 
 
 def bot():
-    send_message(TELEGRAM_TOKEN, 325105532, "Estou on!")
     rec = request(BASE_API_URL, header, params)
     if rec:
         data = rec
@@ -32,10 +33,11 @@ def bot():
                     message = mount_message(
                         host,
                         guest,
-                        "Oportunidades em escanteios:",
+                        "Oportunidades em escanteios",
                         statistic.league_name,
                         statistic.status,
                     )
+                    send_message(TELEGRAM_TOKEN, CHAT_ID_TEST, message)
                     repeated.append(_id)
 
                 elif (
@@ -50,6 +52,7 @@ def bot():
                         statistic.league_name,
                         statistic.status,
                     )
+                    send_message(TELEGRAM_TOKEN, CHAT_ID_TEST, message)
                     repeated.append(_id)
 
                 elif (
@@ -65,6 +68,7 @@ def bot():
                         statistic.league_name,
                         statistic.status,
                     )
+                    send_message(TELEGRAM_TOKEN, CHAT_ID_TEST, message)
                     repeated.append(_id)
 
                 elif (
@@ -80,12 +84,15 @@ def bot():
                         statistic.league_name,
                         statistic.status,
                     )
+                    send_message(TELEGRAM_TOKEN, CHAT_ID_TEST, message)
                     repeated.append(_id)
 
 
 if __name__ == "__main__":
+    send_message(TELEGRAM_TOKEN, 325105532, "Estou on!")
     try:
         while True:
             bot()
+            time.sleep(2)
     except Exception as e:
-        send_message(TELEGRAM_TOKEN, )
+        send_message(TELEGRAM_TOKEN, CHAT_ID_TEST, e)
