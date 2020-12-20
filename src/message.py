@@ -1,21 +1,24 @@
 from telegram import Bot
 
+
 def mount_message(major, minor, type_message, league, status):
     message = f"""
-    <b>{type_message}:</b>
-    {league}
-    {major.name} {major.goals} X {minor.goals} {minor.name}
+<b>{type_message}: {major.name}</b>
+{league}
+{major.name} {major.goals} x {minor.goals} {minor.name}
 
-    {major.danger_attack} ataques perigosos em {status} minútos.
-    {major.on_target} chutes a gol.
-    {major.off_garget} chutes fora.
-    {major.corners} cantos (escanteios).
+{major.danger_attack} ataques perigosos em {status} minútos.
+{major.on_target} chutes a gol.
+{major.off_garget} chutes fora.
+{major.corners} cantos (escanteios).
 
-    Posse de bola {major.possession} x {minor.possession};
+Posse de bola {major.possession} x {minor.possession};
 
-    APM = {major.apm_minute: .2f};
-    chance de gol = {major.opportunity_goals};
-    """
+APM: {major.apm_minute: .2f};
+chance de gol: {major.opportunity_goals};
+""".replace(
+        ".", ","
+    )
     return message
 
 

@@ -6,6 +6,7 @@ autor: romulocarmos@gmail.com
 """
 import requests
 
+
 def request(url, header, params):
     try:
         rec = requests.get(url, headers=header, params=params)
@@ -33,6 +34,7 @@ def is_live(row):
         or status == "全"
         or status == "FT"
         or status == "NS"
+        or status == "HT"
     ):
         return False
 
@@ -40,5 +42,3 @@ def is_live(row):
         return False
 
     return row
-
-# TODO: Mover para o arquivo message.py

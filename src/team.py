@@ -1,20 +1,22 @@
 class Team:
     def __init__(self, team: dict, time: int):
+        self.time = int(time)
         self.name = team["name"]
         self.on_target = team["on_target"]
         self.off_target = team["off_target"]
-        self.attacks = team['attacks']
+        self.attacks = team["attacks"]
         self.danger_attack = team["danger_attacks"]
         self.possession = team["possession"]
         self.corners = team["corners"]
         self.goals = team["goals"]
-        self.apm_minute = self.apm(time)
+        # self.apm_minute = self.apm(time)
 
-    # @property
     # @apm.setter
-    def apm(self, time):
-        return int(self.danger_attack) / int(time)
+    @property
+    def apm(self):
+        return int(self.danger_attack) / int(self.time)
 
+    @property
     def opportunity_goals(self):
         return int(self.corners) + int(self.on_target) + int(self.off_target)
 
