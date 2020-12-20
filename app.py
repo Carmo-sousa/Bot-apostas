@@ -4,7 +4,7 @@ import time
 
 from src.message import *
 from src.apiController import *
-from config import TELEGRAM_TOKEN, BASE_API_URL
+from config import TELEGRAM_TOKEN, BASE_API_URL, CHAT_ID_TEST
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
