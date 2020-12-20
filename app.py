@@ -1,5 +1,6 @@
 import logging
 import threading
+import time
 
 from src.message import *
 from src.apiController import *
@@ -11,7 +12,7 @@ logging.basicConfig(
 
 logger = logging.getLogger()
 
-lives_id = []
+repeated = []
 
 
 def start():
@@ -27,10 +28,10 @@ def start():
     params = {"mt": 0, "nr": 1}
 
     while True:
+        time.sleep(1)
         rec = request(url, header, params)
         if rec:
-            data = request(url, header, params)
-            for item in data:
+            for item in rec:
                 live = is_live(item)
                 if live:
                     _id = live.get("id")
@@ -45,7 +46,6 @@ def start():
                     danger_attack_h = statistic["danger_attack"]["hd"]
                     corners_h = statistic["corners"]["hc"]
                     possessions_h = statistic["possessions"]["hqq"]
-                    # print(possessions_h)
 
                     opportunity_goals_h = chance_de_gol(
                         on_target_h, off_garget_h, corners_h
@@ -65,9 +65,10 @@ def start():
                     )
                     apm_g = apm(status, danger_attack_g)
 
-                    if apm_h >= 1 and opportunity_goals_h >= 15:
+                    print(f"APM: {apm_h}\nChance de gol: {opportunity_goals_h}")
+                    if apm_h >= 1 and opportunity_goals_h >= 15 and _id not in repeated:
                         message = mount_message(
-                            "Chance de Gol:",
+                            f"Chance em escanteios: {team_h}",
                             league,
                             status,
                             team_h,
@@ -85,5 +86,27 @@ def start():
                         )
                         send_message(TELEGRAM_TOKEN, 325105532, message)
                         logger.info("Menssagem enviada")
+                        repeated.append(_id)
+                    if apm_g >= 1 and opportunity_goals_g >= 15 and _id not in repeated:
+                        message = mount_message(
+                            f"Chance de escanteios: {team_g}",
+                            league,
+                            status,
+                            team_g,
+                            goals_g,
+                            goals_h,
+                            team_h,
+                            on_target_g,
+                            off_garget_g,
+                            danger_attack_g,
+                            corners_g,
+                            possessions_g,
+                            possessions_h,
+                            apm_g,
+                            opportunity_goals_g,
+                        )
+                        send_message(TELEGRAM_TOKEN, 325105532, message)
+                        logger.info("Menssagem enviada")
+                        repeated.append(_id)
 
 start()

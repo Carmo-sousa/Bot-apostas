@@ -94,31 +94,32 @@ def mount_message(
     opportunity_goals,
 ):
     message = f"""
-    <b>{type_message}:</b>
-    {league}
-    {team_h} {goals_h} X {goals_g} {team_g}
+<b>{type_message}</b>
 
-    {danger_attack} ataques perigosos em {status} minútos.
-    {on_target} chutes a gol.
-    {off_garget} chutes fora.
-    {corners} cantos (escanteios).
+{league}
+{team_h} {goals_h} X {goals_g} {team_g}
 
-    Posse de bola {possessions_h} x {possessions_g};
+{danger_attack} ataques perigosos em {status} minútos.
+{on_target} chutes a gol.
+{off_garget} chutes fora.
+{corners} cantos (escanteios).
 
-    APM = {apm: .2f};
-    chance de gol = {opportunity_goals};
-    """
+Posse de bola {possessions_h} x {possessions_g};
 
-    return message
+APM = {apm: .2f};
+chance de gol = {opportunity_goals};
+""".replace('.', ',')
+
+    return message.replace('.', ',')
 
 
 def get_statistic(row):
     _league = row.get("league")
     _events_graph = row.get("events_graph")
     _events = _events_graph.get("events", [])
-    _host = row.get("host")
-    _guest = row.get("guest")
-    _plus = row.get("plus")
+    _host = row.get("host", {})
+    _guest = row.get("guest", {})
+    _plus = row.get("plus", {})
     _goals_h = 0
     _goals_g = 0
     _corners_h = 0
