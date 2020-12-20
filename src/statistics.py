@@ -1,5 +1,6 @@
 class Statistics:
     def __init__(self, league):
+        self._status = league.get('status')
         _league = league.get("league")
         self.league_id = league.get("id")
         self._league_name = _league.get("fn")
@@ -9,6 +10,7 @@ class Statistics:
         self._guest = league.get("guest")
         self._plus = league.get("plus")
 
+    @property
     def host(self):
         host = {
             "name": self._host.get("n"),
@@ -36,10 +38,12 @@ class Statistics:
         return guest
 
     def events(self, event_type):
-        event = 0
+        total_events = 0
         for event in self._events:
             type = event.get("t")
-
             if type == event_type:
-                event += 1
-        return event
+                total_events += 1
+        return total_events
+    
+    def status(self):
+        
