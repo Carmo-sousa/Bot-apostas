@@ -1,5 +1,5 @@
 class Team:
-    def __init__(self, team: dict, time: int):
+    def __init__(self, team, time):
         self.time = int(time)
         self.name = team["name"]
         self.on_target = team["on_target"]
