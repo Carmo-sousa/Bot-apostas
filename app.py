@@ -28,6 +28,7 @@ def bot():
                 if (
                     host.apm >= 1.0
                     and host.opportunity_goals >= 15
+                    and total_goals <= 2
                     and _id not in repeated
                 ):
                     message = mount_message(
@@ -43,6 +44,7 @@ def bot():
                 elif (
                     guest.apm >= 1.0
                     and guest.opportunity_goals >= 15
+                    and total_goals <= 2
                     and _id not in repeated
                 ):
                     message = mount_message(
