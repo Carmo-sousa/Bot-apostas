@@ -95,7 +95,7 @@ def bot():
 if __name__ == "__main__":
     try:
         # send_message(TELEGRAM_TOKEN, 1013967190, "Sistema online!")
-        send_message(TELEGRAM_TOKEN, 325105532, "Sistema online")
+        send_message(TELEGRAM_TOKEN, CHAT_ID, "Sistema online")
         while True:
             bot()
             time.sleep(2)
