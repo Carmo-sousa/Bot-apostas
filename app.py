@@ -1,5 +1,8 @@
 import time
 
+from telegram import Update
+from telegram.ext import MessageHandler, Updater, CommandHandler
+
 from src.message import *
 from src.api import *
 from src.statistics import Statistics
@@ -8,7 +11,6 @@ from config import CHAT_ID_TEST, TELEGRAM_TOKEN, BASE_API_URL, header, params
 
 # Guarda o id dos jogos que já tiveram seu alerta emitido
 repeated = []
-
 
 def bot():
     rec = request(BASE_API_URL, header, params)
