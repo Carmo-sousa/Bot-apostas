@@ -2,7 +2,6 @@ from telegram import Bot
 
 
 def mount_message(major, minor, type_message, league, status):
-    # apm = str(major.apm).replace('.', ',')
 
     message = f"""
 <b>{type_message}: {major.name}</b>
