@@ -94,8 +94,8 @@ def bot():
 
 if __name__ == "__main__":
     try:
-        send_message(TELEGRAM_TOKEN, -492919995, "Chegou agora?")
-        send_message(TELEGRAM_TOKEN, 325105532, "Chegou agora?")
+        send_message(TELEGRAM_TOKEN, "-492919995", "Chegou agora?")
+        send_message(TELEGRAM_TOKEN, "325105532", "Chegou agora?")
         while True:
             bot()
             time.sleep(2)
