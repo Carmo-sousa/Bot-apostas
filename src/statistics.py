@@ -1,9 +1,9 @@
 class Statistics:
     def __init__(self, league):
-        self.status = league.get('status')
+        self.status = league.get("status")
         _league = league.get("league")
         self.league_id = league.get("id")
-        self._league_name = _league.get("fn")
+        self.league_name = _league.get("fn")
         self._events_graph = league.get("events_graph")
         self._events = self._events_graph.get("events", [])
         self._host = league.get("host")
@@ -24,12 +24,13 @@ class Statistics:
         }
         return host
 
+    @property
     def guest(self):
         guest = {
             "name": self._guest.get("n"),
             "on_target": self._plus.get("gso", 0),
             "off_target": self._plus.get("gsf", 0),
-            "danger_attack": self._plus.get("gd", 0),
+            "danger_attacks": self._plus.get("gd", 0),
             "attacks": self._plus.get("ga", 0),
             "possession": self._plus.get("gqq", 0),
             "corners": self.events("gc"),
