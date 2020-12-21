@@ -40,8 +40,11 @@ class Statistics:
 
     def events(self, event_type):
         total_events = 0
+
         for event in self._events:
             type = event.get("t")
+
             if type == event_type:
                 total_events += 1
+
         return total_events

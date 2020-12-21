@@ -19,8 +19,6 @@ def request(url, header, params):
         elif status_code == 304:
             return False
     except Exception as e:
-        print("Função: request")
-        print(e)
         return False
 
 

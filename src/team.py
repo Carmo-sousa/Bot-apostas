@@ -10,7 +10,6 @@ class Team:
         self.corners = team["corners"]
         self.goals = team["goals"]
 
-    # @apm.setter
     @property
     def apm(self):
         return int(self.danger_attack) / int(self.time)
@@ -22,5 +21,6 @@ class Team:
     def is_possession(self):
         if self.possession >= 60:
             return True
+
         else:
             return False
