@@ -14,5 +14,5 @@ params = {"mt": 0, "nr": 1}
 
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 BASE_API_URL = os.getenv("BASE_API_URL")
-CHAT_ID_TEST = os.getenv('CHAT_ID_TEST')
-CHAT_ID = os.getenv('CHAT_ID')
+CHAT_ID_TEST = os.getenv("CHAT_ID_TEST")
+CHAT_ID = os.getenv("CHAT_ID")
