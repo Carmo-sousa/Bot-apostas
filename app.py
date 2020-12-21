@@ -100,4 +100,5 @@ if __name__ == "__main__":
             bot()
             time.sleep(2)
     except Exception as e:
-        send_message(TELEGRAM_TOKEN, 325105532, e)
+        # send_message(TELEGRAM_TOKEN, 325105532, e)
+        print(e)
