@@ -94,6 +94,7 @@ def bot():
 
 if __name__ == "__main__":
     try:
+        send_message(TELEGRAM_TOKEN, 325105532, "Tô on")
         while True:
             bot()
             time.sleep(2)
