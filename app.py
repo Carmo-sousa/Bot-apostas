@@ -1,8 +1,5 @@
 import time
 
-from telegram import Update
-from telegram.ext import MessageHandler, Updater, CommandHandler
-
 from src.message import *
 from src.api import *
 from src.statistics import Statistics
@@ -94,11 +91,12 @@ def bot():
 
 if __name__ == "__main__":
     try:
-        # send_message(TELEGRAM_TOKEN, 1013967190, "Sistema online!")
         send_message(TELEGRAM_TOKEN, CHAT_ID, "Sistema online")
         while True:
             bot()
             time.sleep(2)
     except Exception as e:
-        # send_message(TELEGRAM_TOKEN, 325105532, e)
+        send_message(TELEGRAM_TOKEN, CHAT_ID, e)
         print(e)
+
+# https://api.telegram.org/bot1435718138:AAHRp7jhstIS2NV-FID_AmCcs-ZEcYJXpGE/getUpdates

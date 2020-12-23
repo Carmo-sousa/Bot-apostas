@@ -1,6 +1,4 @@
 from telegram import Bot
-from telegram.ext import CommandHandler, Updater
-
 
 def mount_message(major, minor, type_message, league, status):
 
@@ -26,6 +24,3 @@ chance de gol: {major.opportunity_goals}
 def send_message(token, chat_id, message):
     bot = Bot(token=token)
     bot.send_message(chat_id=chat_id, text=message, parse_mode="HTML")
-
-
-# send_message('1461390419:AAFDPAuxzMka8Qt833PMUNj_RCr9yNM9IEU', 325105532, "ei")

@@ -1,6 +1,6 @@
 class Team:
     def __init__(self, team, time):
-        self.time = int(time)
+        self._time = int(time)
         self.name = team["name"]
         self.on_target = team["on_target"]
         self.off_target = team["off_target"]
@@ -12,13 +12,13 @@ class Team:
 
     @property
     def apm(self):
-        return int(self.danger_attack) / int(self.time)
+        return int(self.danger_attack) / self._time
 
     @property
     def opportunity_goals(self):
         return int(self.corners) + int(self.on_target) + int(self.off_target)
 
-    def is_possession(self):
+    def possession(self):
         if self.possession >= 60:
             return True
 
