@@ -18,7 +18,7 @@ class Team:
     def opportunity_goals(self):
         return int(self.corners) + int(self.on_target) + int(self.off_target)
 
-    def possession(self):
+    def is_possession(self):
         if self.possession >= 60:
             return True
 

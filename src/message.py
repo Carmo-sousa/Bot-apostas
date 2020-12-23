@@ -1,5 +1,9 @@
 from telegram import Bot
 
+SOCCER_BALL = "\U000026BD"
+CORNER = "\U000026F3"
+
+
 def mount_message(major, minor, type_message, league, status):
 
     message = f"""
@@ -9,9 +13,9 @@ Liga: {league}
 {major.name} {major.goals} x {minor.goals} {minor.name}
 
 {major.danger_attack} ataques perigosos em {status} minútos.
-{major.on_target} chutes a gol \U000026BD
-{major.off_target} chutes fora \U000026BD
-{major.corners} cantos (escanteios) \U000026F3
+{major.on_target} chutes a gol {SOCCER_BALL}
+{major.off_target} chutes fora {SOCCER_BALL}
+{major.corners} cantos (escanteios) {CORNER}
 
 Posse de bola {major.possession}% x {minor.possession}%
 

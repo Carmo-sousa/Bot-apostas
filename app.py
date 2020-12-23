@@ -9,6 +9,7 @@ from config import CHAT_ID, TELEGRAM_TOKEN, BASE_API_URL, header, params
 # Guarda o id dos jogos que já tiveram seu alerta emitido
 repeated = []
 
+
 def bot():
     rec = request(BASE_API_URL, header, params)
     if rec:
@@ -91,7 +92,7 @@ def bot():
 
 if __name__ == "__main__":
     try:
-        send_message(TELEGRAM_TOKEN, CHAT_ID, "Sistema online")
+        send_message(TELEGRAM_TOKEN, CHAT_ID, "Online")
         while True:
             bot()
             time.sleep(2)
