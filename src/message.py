@@ -1,3 +1,4 @@
+""" Responsável por formatar as menssagens e enviar """
 from telegram import Bot
 
 SOCCER_BALL = "\U000026BD"

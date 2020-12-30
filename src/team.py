@@ -1,3 +1,4 @@
+""" Separa os dados do time e faz os cálculos """
 class Team:
     def __init__(self, team, time):
         self._time = int(time)

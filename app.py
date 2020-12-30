@@ -1,3 +1,4 @@
+""" Válida as informações e envia as mensagens """
 import time
 
 from src.message import *

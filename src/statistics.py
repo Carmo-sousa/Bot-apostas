@@ -1,3 +1,4 @@
+""" Responsável por filtrar os dados vindos da API https://lv.scorebing.com/ajax/score/data """
 class Statistics:
     def __init__(self, league):
         self.status = league.get("status")
