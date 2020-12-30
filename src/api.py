@@ -8,6 +8,10 @@ import requests
 
 
 def request(url, header, params):
+    """
+    Se o status da requisição for 200 retorna um dicionário com as informações de cada liga
+    Caso sejá falso na retorna nada
+    """
     try:
         rec = requests.get(url, headers=header, params=params)
         status_code = rec.status_code
