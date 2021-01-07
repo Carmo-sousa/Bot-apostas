@@ -1,10 +1,10 @@
 """ Válida as informações e envia as mensagens """
 import time
 
-from src.message import *
-from src.api import *
-from src.statistics import Statistics
-from src.team import Team
+from score_bing.message import *
+from score_bing.api import *
+from score_bing.statistics import Statistics
+from score_bing.team import Team
 from config import CHAT_ID, TELEGRAM_TOKEN, BASE_API_URL, header, params
 
 # Guarda o id dos jogos que já tiveram seu alerta emitido

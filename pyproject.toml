@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "bot-telegram"
+version = "0.1.0"
+description = ""
+authors = ["Rômulo do Carmo Sousa <carmosousa20@outlook.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^2.7"
+python-telegram-bot = "^13.1"
+python-dotenv = "^0.15.0"
+requests = "^2.25.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
