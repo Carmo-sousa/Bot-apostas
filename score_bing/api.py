@@ -26,21 +26,19 @@ def request(url, header, params):
         return False
 
 
-def is_live(row):
+def live(row) -> dict:
     status = row.get("status", False)
     league = row.get("league", False)
 
     if (
         not status
+        or not league
         or status == "-1"
         or status == "全"
         or status == "FT"
         or status == "NS"
         or status == "HT"
     ):
-        return False
-
-    if not league:
-        return False
+        return {}
 
     return row
