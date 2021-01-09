@@ -1,17 +1,19 @@
 """ Válida as informações e envia as mensagens """
 import time
 
-from score_bing.message import *
-from score_bing.api import *
+from telegram import Bot
+from config import CHAT_ID, TELEGRAM_TOKEN, BASE_API_URL, header, params
+from score_bing.api import live, request
+from score_bing.message import mount_message, send_message, Message
 from score_bing.statistics import Statistics
 from score_bing.team import Team
-from config import CHAT_ID, TELEGRAM_TOKEN, BASE_API_URL, header, params
 
 # Guarda o id dos jogos que já tiveram seu alerta emitido
 repeated: list[str] = []
+bot: Bot = Bot(TELEGRAM_TOKEN)
 
 
-def bot() -> None:
+def start() -> None:
     message: str = ""
     data: list[dict, str] = request(BASE_API_URL, header, params)
 
@@ -36,14 +38,17 @@ def bot() -> None:
                 and total_goals <= 2
                 and _id not in repeated
             ):
-                message = mount_message(
+
+                message: Message = Message(
                     host,
                     guest,
                     "Oportunidades em escanteios",
                     statistic.league_name,
                     statistic.status,
+                    bot,
                 )
-                send_message(TELEGRAM_TOKEN, CHAT_ID, message)
+
+                message.send(CHAT_ID)
                 repeated.append(_id)
 
             elif (
@@ -52,14 +57,16 @@ def bot() -> None:
                 and total_goals <= 2
                 and _id not in repeated
             ):
-                message = mount_message(
+
+                message: Message = Message(
                     guest,
                     host,
                     "Oportunidades em escanteios",
                     statistic.league_name,
                     statistic.status,
                 )
-                send_message(TELEGRAM_TOKEN, CHAT_ID, message)
+
+                message.send(CHAT_ID)
                 repeated.append(_id)
 
             elif (
@@ -99,8 +106,9 @@ if __name__ == "__main__":
     try:
         send_message(TELEGRAM_TOKEN, CHAT_ID, "Online")
         while True:
-            bot()
+            start()
             time.sleep(2)
+
     except Exception as e:
         send_message(TELEGRAM_TOKEN, CHAT_ID, e)
         print(e)

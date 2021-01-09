@@ -7,7 +7,7 @@ autor: romulocarmos@gmail.com
 import requests
 
 
-def request(url, header, params):
+def request(url, header, params) -> dict:
     """
     Se o status da requisição for 200 retorna um dicionário com as informações de cada liga
     Caso sejá falso na retorna nada
@@ -21,9 +21,9 @@ def request(url, header, params):
             return rec.get("rs")
 
         elif status_code == 304:
-            return False
+            return {}
     except Exception as e:
-        return False
+        return {}
 
 
 def live(row) -> dict:
@@ -42,3 +42,10 @@ def live(row) -> dict:
         return {}
 
     return row
+
+
+def conditions(apm, opportunity_goals, total_goals):
+    # host.apm >= 1.3
+    # and host.opportunity_goals > 15
+    # and total_goals <= 2
+    pass

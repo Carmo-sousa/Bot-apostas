@@ -141,3 +141,4 @@ cython_debug/
 log.txt
 teste.py
 README.pdf
+.vscode/
