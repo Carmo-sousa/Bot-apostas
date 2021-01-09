@@ -1,11 +1,11 @@
 """ Válida as informações e envia as mensagens """
 import time
 
-from score_bing.message import *
-from score_bing.api import *
+from config import CHAT_ID, TELEGRAM_TOKEN, BASE_API_URL, header, params
+from score_bing.api import live, request
+from score_bing.message import mount_message, send_message
 from score_bing.statistics import Statistics
 from score_bing.team import Team
-from config import CHAT_ID, TELEGRAM_TOKEN, BASE_API_URL, header, params
 
 # Guarda o id dos jogos que já tiveram seu alerta emitido
 repeated: list[str] = []
@@ -101,6 +101,7 @@ if __name__ == "__main__":
         while True:
             bot()
             time.sleep(2)
+
     except Exception as e:
         send_message(TELEGRAM_TOKEN, CHAT_ID, e)
         print(e)
