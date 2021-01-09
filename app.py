@@ -4,7 +4,7 @@ import time
 from telegram import Bot
 from config import CHAT_ID, TELEGRAM_TOKEN, BASE_API_URL, header, params
 from score_bing.api import live, request
-from score_bing.message import mount_message, send_message, Message
+from score_bing.message import Message
 from score_bing.statistics import Statistics
 from score_bing.team import Team
 
@@ -22,7 +22,7 @@ def start() -> None:
             row: dict = live(row)
 
             if not row:
-                continue
+                break
 
             _id: str = row.get("id")
             statistic: Statistics = Statistics(row)
@@ -75,14 +75,15 @@ def start() -> None:
                 and total_goals <= 2
                 and _id not in repeated
             ):
-                message = mount_message(
+                message: Message = Message(
                     host,
                     guest,
                     "Oportunidades em gol",
                     statistic.league_name,
                     statistic.status,
                 )
-                send_message(TELEGRAM_TOKEN, CHAT_ID, message)
+
+                message.send(CHAT_ID)
                 repeated.append(_id)
 
             elif (
@@ -91,26 +92,28 @@ def start() -> None:
                 and total_goals <= 2
                 and _id not in repeated
             ):
-                message = mount_message(
+                message: Message = Message(
                     guest,
                     host,
-                    "Oportunidades em gol",
+                    "Oportunidades em escanteios",
                     statistic.league_name,
                     statistic.status,
                 )
-                send_message(TELEGRAM_TOKEN, CHAT_ID, message)
+
+                message.send(CHAT_ID)
                 repeated.append(_id)
 
 
 if __name__ == "__main__":
     try:
-        send_message(TELEGRAM_TOKEN, CHAT_ID, "Online")
+        # send_message(TELEGRAM_TOKEN, CHAT_ID, "Online")
+        print("Bot está Online!")
         while True:
             start()
             time.sleep(2)
 
     except Exception as e:
-        send_message(TELEGRAM_TOKEN, CHAT_ID, e)
+        # send_message(TELEGRAM_TOKEN, CHAT_ID, e)
         print(e)
 
 # https://api.telegram.org/bot1435718138:AAHRp7jhstIS2NV-FID_AmCcs-ZEcYJXpGE/getUpdates
