@@ -19,6 +19,7 @@ class Team:
 
     @property
     def apm(self) -> int:
+        """ Return attacks per minute """
         return int(self.danger_attack) / self._time
 
     @property
