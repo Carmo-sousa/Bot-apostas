@@ -1,4 +1,8 @@
-""" Separa os dados do time e faz os cálculos """
+"""
+Separa os dados do time e faz os cálculos
+
+E-mail: romulocarmos@gmail.com
+"""
 
 
 class Team:
