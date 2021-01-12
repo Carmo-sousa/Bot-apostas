@@ -16,8 +16,8 @@ class Message:
         league: str,
         status: str,
         bot: Bot,
-    ):
-        _types = {
+    ) -> None:
+        _types: dict = {
             "corners": "Oportunidades em escanteios",
             "goals": "Oportunidades em gol",
         }
@@ -29,9 +29,10 @@ class Message:
         self.status = status
         self.bot = bot
 
-    def mount_message(self):
+    @property
+    def mount_message(self) -> str:
 
-        message = f"""
+        message: str = f"""
         <b>{self.message_type}: {self.major.name}</b>
         Liga: {self.league}
 
@@ -49,6 +50,7 @@ class Message:
         """
         return message
 
-    def send(self, chat_id):
-        message = self.mount_message()
-        self.bot.send_message(chat_id=chat_id, text=message, parse_mode="HTML")
+    def send(self, chat_id: str) -> None:
+        self.bot.send_message(
+            chat_id=chat_id, text=self.mount_message, parse_mode="HTML"
+        )
