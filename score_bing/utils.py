@@ -44,8 +44,15 @@ def live(row) -> dict:
     return row
 
 
-def conditions(apm, opportunity_goals, total_goals):
-    # host.apm >= 1.3
-    # and host.opportunity_goals > 15
-    # and total_goals <= 2
-    pass
+def conditions(apm: int, opportunity_goals: int, total_goals: int, condition_type: str):
+    """Verifica se as condições estão batendo if sim retorna true senão false."""
+
+    if condition_type == "goals":
+        if apm >= 1.3 and opportunity_goals > 15 and total_goals <= 2:
+            return True
+
+    elif condition_type == "corner":
+        if apm >= 1.0 and opportunity_goals >= 15 and total_goals <= 2:
+            return True
+
+    return False
