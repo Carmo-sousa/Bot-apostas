@@ -17,9 +17,14 @@ class Message:
         status: str,
         bot: Bot,
     ):
+        _types = {
+            "corners": "Oportunidades em escanteios",
+            "goals": "Oportunidades em gol",
+        }
+
         self.major = major
         self.minor = minor
-        self.message_type = message_type
+        self.message_type = _types[message_type]
         self.league = league
         self.status = status
         self.bot = bot
