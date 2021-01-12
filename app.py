@@ -42,7 +42,7 @@ def start() -> None:
                 message: Message = Message(
                     host,
                     guest,
-                    "Oportunidades em escanteios",
+                    "corners",
                     statistic.league_name,
                     statistic.status,
                     bot,
@@ -61,7 +61,7 @@ def start() -> None:
                 message: Message = Message(
                     guest,
                     host,
-                    "Oportunidades em escanteios",
+                    "corners",
                     statistic.league_name,
                     statistic.status,
                     bot,
@@ -79,7 +79,7 @@ def start() -> None:
                 message: Message = Message(
                     host,
                     guest,
-                    "Oportunidades em gol",
+                    "goals",
                     statistic.league_name,
                     statistic.status,
                     bot,
@@ -97,7 +97,7 @@ def start() -> None:
                 message: Message = Message(
                     guest,
                     host,
-                    "Oportunidades em escanteios",
+                    "goals",
                     statistic.league_name,
                     statistic.status,
                     bot,
