@@ -3,7 +3,7 @@ import time
 
 from telegram import Bot
 from config import CHAT_ID, TELEGRAM_TOKEN, BASE_API_URL, header, params
-from score_bing.utils import live, request
+from score_bing.utils import live, request, conditions
 from score_bing.message import Message
 from score_bing.statistics import Statistics
 from score_bing.team import Team
@@ -32,13 +32,27 @@ def start() -> None:
 
             total_goals: int = host.goals + guest.goals
 
-            if (
-                host.apm >= 1.0
-                and host.opportunity_goals >= 15
-                and total_goals <= 2
-                and _id not in repeated
-            ):
+            # Condições de escanteio do host
+            corners_conditions_h = conditions(
+                host.apm, host.opportunity_goals, total_goals, "corners"
+            )
 
+            # Condições de escanteio do guest
+            corners_conditions_g = conditions(
+                guest.apm, guest.opportunity_goals, total_goals, "corners"
+            )
+
+            # Condições de gol do host
+            goals_conditions_h = conditions(
+                host.apm, host.opportunity_goals, total_goals, "goals"
+            )
+
+            # Condições de gol do guest
+            goals_conditions_g = conditions(
+                guest.apm, guest.opportunity_goals, total_goals, "goals"
+            )
+
+            if corners_conditions_h and _id not in repeated:
                 message: Message = Message(
                     host,
                     guest,
@@ -51,13 +65,7 @@ def start() -> None:
                 message.send(CHAT_ID)
                 repeated.append(_id)
 
-            elif (
-                guest.apm >= 1.0
-                and guest.opportunity_goals >= 15
-                and total_goals <= 2
-                and _id not in repeated
-            ):
-
+            elif corners_conditions_g and _id not in repeated:
                 message: Message = Message(
                     guest,
                     host,
@@ -70,12 +78,7 @@ def start() -> None:
                 message.send(CHAT_ID)
                 repeated.append(_id)
 
-            elif (
-                host.apm >= 1.3
-                and host.opportunity_goals > 15
-                and total_goals <= 2
-                and _id not in repeated
-            ):
+            elif goals_conditions_h and _id not in repeated:
                 message: Message = Message(
                     host,
                     guest,
@@ -88,12 +91,7 @@ def start() -> None:
                 message.send(CHAT_ID)
                 repeated.append(_id)
 
-            elif (
-                guest.apm >= 1.0
-                and guest.opportunity_goals > 15
-                and total_goals <= 2
-                and _id not in repeated
-            ):
+            elif goals_conditions_g and _id not in repeated:
                 message: Message = Message(
                     guest,
                     host,
