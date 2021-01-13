@@ -18,9 +18,9 @@ Envia uma mensagem quando o APM for maior que 1.3 e a chance de gol for maior qu
 2. Configurar corretamente as variáveis de ambiente
 
     ```.env
-    TELEGRAM_TOKEN=1461390419:AAFDPAuxzMka8Qt833PMUNj_RCr9yNM9IEU
+    TELEGRAM_TOKEN=your_telegram_token
     BASE_API_URL=https://lv.scorebing.com/ajax/score/data
-    CHAT_ID=-492919995
+    CHAT_ID=your_chat_id
     ```
 
 3. Rodar o comando `pip install -r requirements.txt` dentro da pasta do projeto.
