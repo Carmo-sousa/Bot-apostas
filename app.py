@@ -9,7 +9,7 @@ from score_bing.statistics import Statistics
 from score_bing.team import Team
 
 # Guarda o id dos jogos que já tiveram seu alerta emitido
-repeated: list[str] = []
+repeated: list = []
 bot: Bot = Bot(TELEGRAM_TOKEN)
 
 
@@ -33,22 +33,22 @@ def start() -> None:
             total_goals: int = host.goals + guest.goals
 
             # Condições de escanteio do host
-            corners_conditions_h = conditions(
+            corners_conditions_h: bool = conditions(
                 host.apm, host.opportunity_goals, total_goals, "corners"
             )
 
             # Condições de escanteio do guest
-            corners_conditions_g = conditions(
+            corners_conditions_g: bool = conditions(
                 guest.apm, guest.opportunity_goals, total_goals, "corners"
             )
 
             # Condições de gol do host
-            goals_conditions_h = conditions(
+            goals_conditions_h: bool = conditions(
                 host.apm, host.opportunity_goals, total_goals, "goals"
             )
 
             # Condições de gol do guest
-            goals_conditions_g = conditions(
+            goals_conditions_g: bool = conditions(
                 guest.apm, guest.opportunity_goals, total_goals, "goals"
             )
 
