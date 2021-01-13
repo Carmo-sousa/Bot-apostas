@@ -2,20 +2,20 @@
 
 
 class Statistics:
-    def __init__(self, league):
-        self.status = league.get("status")
-        _league = league.get("league")
-        self.league_id = league.get("id")
-        self.league_name = _league.get("fn")
-        self._events_graph = league.get("events_graph")
-        self._events = self._events_graph.get("events", [])
-        self._host = league.get("host")
-        self._guest = league.get("guest")
-        self._plus = league.get("plus")
+    def __init__(self, league) -> None:
+        self.status: str = league.get("status")
+        _league: dict = league.get("league")
+        self.league_id: str = league.get("id")
+        self.league_name: str = _league.get("fn")
+        self._events_graph: dict = league.get("events_graph")
+        self._events: list[dict] = self._events_graph.get("events", [])
+        self._host: dict = league.get("host")
+        self._guest: dict = league.get("guest")
+        self._plus: dict = league.get("plus")
 
     @property
-    def host(self):
-        host = {
+    def host(self) -> dict:
+        host: dict = {
             "name": self._host.get("n"),
             "on_target": self._plus.get("hso", 0),
             "off_target": self._plus.get("hsf", 0),
@@ -28,8 +28,8 @@ class Statistics:
         return host
 
     @property
-    def guest(self):
-        guest = {
+    def guest(self) -> dict:
+        guest: dict = {
             "name": self._guest.get("n"),
             "on_target": self._plus.get("gso", 0),
             "off_target": self._plus.get("gsf", 0),
@@ -41,11 +41,11 @@ class Statistics:
         }
         return guest
 
-    def events(self, event_type):
-        total_events = 0
+    def events(self, event_type: str) -> int:
+        total_events: int = 0
 
         for event in self._events:
-            type = event.get("t")
+            type: str = event.get("t")
 
             if type == event_type:
                 total_events += 1
