@@ -7,32 +7,6 @@ SOCCER_BALL: str = "\U000026BD"
 CORNER: str = "\U000026F3"
 
 
-def mount_message(major, minor, type_message, league, status):
-
-    message = f"""
-<b>{type_message}: {major.name}</b>
-Liga: {league}
-
-{major.name} {major.goals} x {minor.goals} {minor.name}
-
-{major.danger_attack} ataques perigosos em {status} minútos.
-{major.on_target} chutes a gol {SOCCER_BALL}
-{major.off_target} chutes fora {SOCCER_BALL}
-{major.corners} cantos (escanteios) {CORNER}
-
-Posse de bola {major.possession}% x {minor.possession}%
-
-APM: {major.apm: .2f}
-chance de gol: {major.opportunity_goals}
-"""
-    return message
-
-
-def send_message(token, chat_id, message):
-    bot = Bot(token=token)
-    bot.send_message(chat_id=chat_id, text=message, parse_mode="HTML")
-
-
 class Message:
     def __init__(
         self,
@@ -42,17 +16,23 @@ class Message:
         league: str,
         status: str,
         bot: Bot,
-    ):
+    ) -> None:
+        _types: dict = {
+            "corners": "Oportunidades em escanteios",
+            "goals": "Oportunidades em gol",
+        }
+
         self.major = major
         self.minor = minor
-        self.message_type = message_type
+        self.message_type = _types[message_type]
         self.league = league
         self.status = status
         self.bot = bot
 
-    def mount_message(self):
+    @property
+    def mount_message(self) -> str:
 
-        message = f"""
+        message: str = f"""
         <b>{self.message_type}: {self.major.name}</b>
         Liga: {self.league}
 
@@ -70,6 +50,7 @@ class Message:
         """
         return message
 
-    def send(self, chat_id):
-        message = self.mount_message()
-        self.bot.send_message(chat_id=chat_id, text=message, parse_mode="HTML")
+    def send(self, chat_id: str) -> None:
+        self.bot.send_message(
+            chat_id=chat_id, text=self.mount_message, parse_mode="HTML"
+        )
