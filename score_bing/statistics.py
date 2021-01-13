@@ -2,7 +2,7 @@
 
 
 class Statistics:
-    def __init__(self, league) -> None:
+    def __init__(self, league: dict) -> None:
         self.status: str = league.get("status")
         _league: dict = league.get("league")
         self.league_id: str = league.get("id")
