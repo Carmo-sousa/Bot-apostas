@@ -8,7 +8,7 @@ import requests
 from requests.models import Response
 
 
-def request(url, header, params) -> dict:
+def request(url: str, header: dict, params: dict) -> dict:
     """
     Se o status da requisição for 200 retorna um dicionário com as informações de cada liga
     Caso sejá falso na retorna nada
@@ -18,8 +18,9 @@ def request(url, header, params) -> dict:
         status_code: int = rec.status_code
 
         if status_code == 200:
-            rec = rec.json()
-            return rec.get("rs")
+            data: dict = rec.json()
+            print(type(data))
+            return data.get("rs", {})
 
         elif status_code == 304:
             return {}
@@ -27,8 +28,10 @@ def request(url, header, params) -> dict:
         print(e)
         return {}
 
+    return {}
 
-def live(row) -> dict:
+
+def live(row: dict) -> dict:
     status: str = row.get("status", False)
     league: str = row.get("league", False)
 

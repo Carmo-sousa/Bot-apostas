@@ -1,7 +1,7 @@
 """ Responsável por formatar as menssagens e enviar """
 from telegram import Bot
 
-from .team import Team
+from score_bing.team import Team  # type: ignore
 
 SOCCER_BALL: str = "\U000026BD"
 CORNER: str = "\U000026F3"

@@ -1,17 +1,20 @@
 """ Responsável por filtrar os dados vindos da API https://lv.scorebing.com/ajax/score/data """
 
 
+from typing import List
+
+
 class Statistics:
     def __init__(self, league: dict) -> None:
-        self.status: str = league.get("status")
-        _league: dict = league.get("league")
-        self.league_id: str = league.get("id")
-        self.league_name: str = _league.get("fn")
-        self._events_graph: dict = league.get("events_graph")
-        self._events: list[dict] = self._events_graph.get("events", [])
-        self._host: dict = league.get("host")
-        self._guest: dict = league.get("guest")
-        self._plus: dict = league.get("plus")
+        self.status: str = league.get("status", "")
+        _league: dict = league.get("league", {})
+        self.league_id: str = league.get("id", "")
+        self.league_name: str = _league.get("fn", "")
+        self._events_graph: dict = league.get("events_graph", {})
+        self._events: List[dict] = self._events_graph.get("events", [])
+        self._host: dict = league.get("host", {})
+        self._guest: dict = league.get("guest", {})
+        self._plus: dict = league.get("plus", {})
 
     @property
     def host(self) -> dict:
@@ -45,7 +48,7 @@ class Statistics:
         total_events: int = 0
 
         for event in self._events:
-            type: str = event.get("t")
+            type: str = event.get("t", "")
 
             if type == event_type:
                 total_events += 1

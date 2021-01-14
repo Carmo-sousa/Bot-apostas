@@ -18,7 +18,7 @@ class Team:
         self.goals: str = team["goals"]
 
     @property
-    def apm(self) -> int:
+    def apm(self) -> float:
         """ Return attacks per minute """
         return int(self.danger_attack) / self._time
 
@@ -27,7 +27,7 @@ class Team:
         return int(self.corners) + int(self.on_target) + int(self.off_target)
 
     def is_possession(self) -> bool:
-        if self.possession >= 60:
+        if self.possession >= "60":
             return True
 
         else:
