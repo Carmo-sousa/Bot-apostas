@@ -29,7 +29,7 @@ def start() -> None:
             host = Team(statistic.host, statistic.status)
             guest = Team(statistic.guest, statistic.status)
 
-            total_goals = host.goals + guest.goals
+            total_goals = int(host.goals + guest.goals)
 
             # Condições de escanteio do host
             corners_conditions_h = conditions(

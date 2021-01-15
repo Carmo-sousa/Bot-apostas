@@ -1,4 +1,7 @@
-""" Responsável por filtrar os dados vindos da API https://lv.scorebing.com/ajax/score/data """
+"""
+Responsável por filtrar os dados vindos da
+API https://lv.scorebing.com/ajax/score/data
+"""
 
 
 from typing import List

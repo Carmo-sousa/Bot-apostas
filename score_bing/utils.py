@@ -1,6 +1,6 @@
 """
-Description:Responsável por enviar uma requisição para https://lv.scorebing.com/ajax/score/data e
-            tratar os dados.
+Description:Responsável por enviar uma requisição para
+https://lv.scorebing.com/ajax/score/data e tratar os dados.
 
 autor: romulocarmos@gmail.com
 """
@@ -10,7 +10,9 @@ from requests.models import Response
 
 def request(url: str, header: dict, params: dict) -> dict:
     """
-    Se o status da requisição for 200 retorna um dicionário com as informações de cada liga
+    Se o status da requisição for 200 retorna um dicionário com as
+    informações de cada liga
+
     Caso sejá falso na retorna nada
     """
     try:
@@ -50,9 +52,11 @@ def live(row: dict) -> dict:
 
 
 def conditions(
-    apm: int, opportunity_goals: int, total_goals: int, condition_type: str
+    apm: float, opportunity_goals: float, total_goals: int, condition_type: str
 ) -> bool:
-    """Verifica se as condições estão batendo if sim retorna true senão false."""
+    """
+    Verifica se as condições estão batendo if sim retorna true senão false.
+    """
 
     if condition_type == "goals":
         if apm >= 1.3 and opportunity_goals > 15 and total_goals <= 2:

@@ -33,21 +33,21 @@ class Message:
     def mount_message(self) -> str:
 
         message: str = f"""
-        <b>{self.message_type}: {self.major.name}</b>
-        Liga: {self.league}
+    <b>{self.message_type}: {self.major.name}</b>
+    Liga: {self.league}
 
-        {self.major.name} {self.major.goals} x {self.minor.goals} {self.minor.name}
+    {self.major.name} {self.major.goals} x {self.minor.goals} {self.minor.name}
 
-        {self.major.danger_attack} ataques perigosos em {self.status} minútos.
-        {self.major.on_target} chutes a gol {SOCCER_BALL}
-        {self.major.off_target} chutes fora {SOCCER_BALL}
-        {self.major.corners} cantos (escanteios) {CORNER}
+    {self.major.danger_attack} ataques perigosos em {self.status} minútos.
+    {self.major.on_target} chutes a gol {SOCCER_BALL}
+    {self.major.off_target} chutes fora {SOCCER_BALL}
+    {self.major.corners} cantos (escanteios) {CORNER}
 
-        Posse de bola {self.major.possession}% x {self.minor.possession}%
+    Posse de bola {self.major.possession}% x {self.minor.possession}%
 
-        APM: {self.major.apm: .2f}
-        chance de gol: {self.major.opportunity_goals}
-        """
+    APM: {self.major.apm: .2f}
+    chance de gol: {self.major.opportunity_goals}
+    """
         return message
 
     def send(self, chat_id: str) -> None:
