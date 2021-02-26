@@ -1,7 +1,11 @@
 """ Responsável por formatar as menssagens e enviar """
+import logging
+
 from telegram import Bot
 
 from score_bing.team import Team  # type: ignore
+
+logger = logging.getLogger(__name__)
 
 SOCCER_BALL: str = "\U000026BD"
 CORNER: str = "\U000026F3"
@@ -51,6 +55,7 @@ class Message:
         return message
 
     def send(self, chat_id: str) -> None:
+        logger.info(f"Menssagem do tipo {self.message_type}.")
         self.bot.send_message(
             chat_id=chat_id, text=self.mount_message, parse_mode="HTML"
         )
