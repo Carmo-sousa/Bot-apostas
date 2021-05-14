@@ -113,6 +113,6 @@ if __name__ == "__main__":
             time.sleep(2)
 
     except Exception as e:
-        print(e)
+        bot.send_message(chat_id=CHAT_ID, text=str(e))
 
 # https://api.telegram.org/bot1435718138:AAHRp7jhstIS2NV-FID_AmCcs-ZEcYJXpGE/getUpdates
