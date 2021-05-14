@@ -3,11 +3,12 @@ import logging
 import time
 
 from telegram import Bot
-from config import CHAT_ID, TELEGRAM_TOKEN, BASE_API_URL, header, params
-from score_bing.utils import live, request, conditions  # type: ignore
+
+from config import BASE_API_URL, CHAT_ID, TELEGRAM_TOKEN, header, params
 from score_bing.message import Message  # type: ignore
 from score_bing.statistics import Statistics  # type: ignore
 from score_bing.team import Team  # type: ignore
+from score_bing.utils import conditions, live, request  # type: ignore
 
 logger = logging.getLogger(__name__)
 

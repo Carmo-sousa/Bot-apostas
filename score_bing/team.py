@@ -1,7 +1,5 @@
 """
 Separa os dados do time e faz os cálculos
-
-E-mail: romulocarmos@gmail.com
 """
 
 

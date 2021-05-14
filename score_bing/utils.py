@@ -1,8 +1,6 @@
 """
 Description:Responsável por enviar uma requisição para
 https://lv.scorebing.com/ajax/score/data e tratar os dados.
-
-autor: romulocarmos@gmail.com
 """
 import requests
 from requests.models import Response
