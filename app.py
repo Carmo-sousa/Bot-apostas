@@ -2,11 +2,12 @@
 import time
 
 from telegram import Bot
-from config import CHAT_ID, TELEGRAM_TOKEN, BASE_API_URL, header, params
-from score_bing.utils import live, request, conditions
+
+from config import BASE_API_URL, CHAT_ID, TELEGRAM_TOKEN, header, params
 from score_bing.message import Message
 from score_bing.statistics import Statistics
 from score_bing.team import Team
+from score_bing.utils import conditions, live, request
 
 # Guarda o id dos jogos que já tiveram seu alerta emitido
 repeated: list = []
@@ -33,24 +34,24 @@ def start() -> None:
             total_goals: int = host.goals + guest.goals
 
             # Condições de escanteio do host
-            corners_conditions_h: bool = conditions(
-                host.apm, host.opportunity_goals, total_goals, "corners"
-            )
+            corners_conditions_h: bool = conditions(host.apm,
+                                                    host.opportunity_goals,
+                                                    total_goals, "corners")
 
             # Condições de escanteio do guest
-            corners_conditions_g: bool = conditions(
-                guest.apm, guest.opportunity_goals, total_goals, "corners"
-            )
+            corners_conditions_g: bool = conditions(guest.apm,
+                                                    guest.opportunity_goals,
+                                                    total_goals, "corners")
 
             # Condições de gol do host
-            goals_conditions_h: bool = conditions(
-                host.apm, host.opportunity_goals, total_goals, "goals"
-            )
+            goals_conditions_h: bool = conditions(host.apm,
+                                                  host.opportunity_goals,
+                                                  total_goals, "goals")
 
             # Condições de gol do guest
-            goals_conditions_g: bool = conditions(
-                guest.apm, guest.opportunity_goals, total_goals, "goals"
-            )
+            goals_conditions_g: bool = conditions(guest.apm,
+                                                  guest.opportunity_goals,
+                                                  total_goals, "goals")
 
             if corners_conditions_h and _id not in repeated:
                 message: Message = Message(

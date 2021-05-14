@@ -1,8 +1,6 @@
 """
 Description:Responsável por enviar uma requisição para https://lv.scorebing.com/ajax/score/data e
             tratar os dados.
-
-autor: romulocarmos@gmail.com
 """
 import requests
 from requests.models import Response
@@ -32,23 +30,15 @@ def live(row) -> dict:
     status: str = row.get("status", False)
     league: str = row.get("league", False)
 
-    if (
-        not status
-        or not league
-        or status == "-1"
-        or status == "全"
-        or status == "FT"
-        or status == "NS"
-        or status == "HT"
-    ):
+    if (not status or not league or status == "-1" or status == "全"
+            or status == "FT" or status == "NS" or status == "HT"):
         return {}
 
     return row
 
 
-def conditions(
-    apm: int, opportunity_goals: int, total_goals: int, condition_type: str
-) -> bool:
+def conditions(apm: int, opportunity_goals: int, total_goals: int,
+               condition_type: str) -> bool:
     """Verifica se as condições estão batendo if sim retorna true senão false."""
 
     if condition_type == "goals":
