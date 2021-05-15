@@ -1,5 +1,10 @@
 # Bot do telegram
 
+![Autor](https://img.shields.io/badge/Sousa-Bot%20de%20apostas-yellowgreen)
+![Github License](https://img.shields.io/badge/license-MIT-green)
+
+![Logo](./img/logo.svg)
+
 O bot envia mensagens para um chat quando algumas condições forem atendidas
 
 ## Tipos de mensagens
