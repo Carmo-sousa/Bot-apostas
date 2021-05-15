@@ -34,15 +34,23 @@ def live(row: dict) -> dict:
     status: str = row.get("status", False)
     league: str = row.get("league", False)
 
-    if (not status or not league or status == "-1" or status == "全"
-            or status == "FT" or status == "NS" or status == "HT"):
+    if (
+        not status
+        or not league
+        or status == "-1"
+        or status == "全"
+        or status == "FT"
+        or status == "NS"
+        or status == "HT"
+    ):
         return {}
 
     return row
 
 
-def conditions(apm: float, opportunity_goals: float, total_goals: int,
-               condition_type: str) -> bool:
+def conditions(
+    apm: float, opportunity_goals: float, total_goals: int, condition_type: str
+) -> bool:
     """
     Verifica se as condições estão batendo if sim retorna true senão false.
     """

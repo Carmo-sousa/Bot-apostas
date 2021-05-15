@@ -36,21 +36,24 @@ def start() -> None:
             total_goals = int(host.goals + guest.goals)
 
             # Condições de escanteio do host
-            corners_conditions_h = conditions(host.apm, host.opportunity_goals,
-                                              total_goals, "corners")
+            corners_conditions_h = conditions(
+                host.apm, host.opportunity_goals, total_goals, "corners"
+            )
 
             # Condições de escanteio do guest
-            corners_conditions_g = conditions(guest.apm,
-                                              guest.opportunity_goals,
-                                              total_goals, "corners")
+            corners_conditions_g = conditions(
+                guest.apm, guest.opportunity_goals, total_goals, "corners"
+            )
 
             # Condições de gol do host
-            goals_conditions_h = conditions(host.apm, host.opportunity_goals,
-                                            total_goals, "goals")
+            goals_conditions_h = conditions(
+                host.apm, host.opportunity_goals, total_goals, "goals"
+            )
 
             # Condições de gol do guest
-            goals_conditions_g = conditions(guest.apm, guest.opportunity_goals,
-                                            total_goals, "goals")
+            goals_conditions_g = conditions(
+                guest.apm, guest.opportunity_goals, total_goals, "goals"
+            )
 
             if corners_conditions_h and _id not in repeated:
                 message = Message(
@@ -107,8 +110,10 @@ def start() -> None:
 
 if __name__ == "__main__":
     try:
-        logger.info(f"Enviando uma menssagem para {CHAT_ID} "
-                    "informando que o sistema está online!")
+        logger.info(
+            f"Enviando uma menssagem para {CHAT_ID} "
+            "informando que o sistema está online!"
+        )
         bot.send_message(chat_id=CHAT_ID, text="Sistem online!")
         while True:
             start()
