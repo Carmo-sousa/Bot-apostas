@@ -1,14 +1,16 @@
 """
-Description:Responsável por enviar uma requisição para https://lv.scorebing.com/ajax/score/data e
-            tratar os dados.
+Description:Responsável por enviar uma requisição para
+https://lv.scorebing.com/ajax/score/data e tratar os dados.
 """
 import requests
 from requests.models import Response
 
 
-def request(url, header, params) -> dict:
+def request(url: str, header: dict, params: dict) -> dict:
     """
-    Se o status da requisição for 200 retorna um dicionário com as informações de cada liga
+    Se o status da requisição for 200 retorna um dicionário com as
+    informações de cada liga
+
     Caso sejá falso na retorna nada
     """
     try:
@@ -16,8 +18,8 @@ def request(url, header, params) -> dict:
         status_code: int = rec.status_code
 
         if status_code == 200:
-            rec = rec.json()
-            return rec.get("rs")
+            data: dict = rec.json()
+            return data.get("rs", {})
 
         elif status_code == 304:
             return {}
@@ -25,8 +27,10 @@ def request(url, header, params) -> dict:
         print(e)
         return {}
 
+    return {}
 
-def live(row) -> dict:
+
+def live(row: dict) -> dict:
     status: str = row.get("status", False)
     league: str = row.get("league", False)
 
@@ -37,9 +41,11 @@ def live(row) -> dict:
     return row
 
 
-def conditions(apm: int, opportunity_goals: int, total_goals: int,
+def conditions(apm: float, opportunity_goals: float, total_goals: int,
                condition_type: str) -> bool:
-    """Verifica se as condições estão batendo if sim retorna true senão false."""
+    """
+    Verifica se as condições estão batendo if sim retorna true senão false.
+    """
 
     if condition_type == "goals":
         if apm >= 1.3 and opportunity_goals > 15 and total_goals <= 2:

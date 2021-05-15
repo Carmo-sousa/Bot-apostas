@@ -1,7 +1,11 @@
 """ Responsável por formatar as menssagens e enviar """
+import logging
+
 from telegram import Bot
 
-from .team import Team
+from score_bing.team import Team  # type: ignore
+
+logger = logging.getLogger(__name__)
 
 SOCCER_BALL: str = "\U000026BD"
 CORNER: str = "\U000026F3"
@@ -33,24 +37,25 @@ class Message:
     def mount_message(self) -> str:
 
         message: str = f"""
-        <b>{self.message_type}: {self.major.name}</b>
-        Liga: {self.league}
+    <b>{self.message_type}: {self.major.name}</b>
+    Liga: {self.league}
 
-        {self.major.name} {self.major.goals} x {self.minor.goals} {self.minor.name}
+    {self.major.name} {self.major.goals} x {self.minor.goals} {self.minor.name}
 
-        {self.major.danger_attack} ataques perigosos em {self.status} minútos.
-        {self.major.on_target} chutes a gol {SOCCER_BALL}
-        {self.major.off_target} chutes fora {SOCCER_BALL}
-        {self.major.corners} cantos (escanteios) {CORNER}
+    {self.major.danger_attack} ataques perigosos em {self.status} minútos.
+    {self.major.on_target} chutes a gol {SOCCER_BALL}
+    {self.major.off_target} chutes fora {SOCCER_BALL}
+    {self.major.corners} cantos (escanteios) {CORNER}
 
-        Posse de bola {self.major.possession}% x {self.minor.possession}%
+    Posse de bola {self.major.possession}% x {self.minor.possession}%
 
-        APM: {self.major.apm: .2f}
-        chance de gol: {self.major.opportunity_goals}
-        """
+    APM: {self.major.apm: .2f}
+    chance de gol: {self.major.opportunity_goals}
+    """
         return message
 
     def send(self, chat_id: str) -> None:
+        logger.info(f"Menssagem do tipo {self.message_type}.")
         self.bot.send_message(
             chat_id=chat_id, text=self.mount_message, parse_mode="HTML"
         )
