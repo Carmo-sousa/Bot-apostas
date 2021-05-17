@@ -4,7 +4,7 @@ import time
 
 from telegram import Bot
 
-from config import BASE_API_URL, CHAT_ID, TELEGRAM_TOKEN, header, params
+from config import header, params, Config
 from score_bing.message import Message  # type: ignore
 from score_bing.statistics import Statistics  # type: ignore
 from score_bing.team import Team  # type: ignore
@@ -14,11 +14,11 @@ logger = logging.getLogger(__name__)
 
 # Guarda o id dos jogos que já tiveram seu alerta emitido
 repeated = []
-bot = Bot(TELEGRAM_TOKEN)
+bot = Bot(Config.TELEGRAM_TOKEN)
 
 
 def start() -> None:
-    data = request(BASE_API_URL, header, params)
+    data = request(Config.BASE_API_URL, header, params)
 
     if data:
         for row in data:
@@ -62,7 +62,7 @@ def start() -> None:
                     bot,
                 )
 
-                message.send(CHAT_ID)
+                message.send(Config.CHAT_ID)
                 repeated.append(_id)
 
             elif corners_conditions_g and _id not in repeated:
@@ -75,7 +75,7 @@ def start() -> None:
                     bot,
                 )
 
-                message.send(CHAT_ID)
+                message.send(Config.CHAT_ID)
                 repeated.append(_id)
 
             elif goals_conditions_h and _id not in repeated:
@@ -88,7 +88,7 @@ def start() -> None:
                     bot,
                 )
 
-                message.send(CHAT_ID)
+                message.send(Config.CHAT_ID)
                 repeated.append(_id)
 
             elif goals_conditions_g and _id not in repeated:
@@ -101,15 +101,15 @@ def start() -> None:
                     bot,
                 )
 
-                message.send(CHAT_ID)
+                message.send(Config.CHAT_ID)
                 repeated.append(_id)
 
 
 if __name__ == "__main__":
     try:
-        logger.info(f"Enviando uma menssagem para {CHAT_ID} "
+        logger.info(f"Enviando uma menssagem para {Config.CHAT_ID} "
                     "informando que o sistema está online!")
-        bot.send_message(chat_id=CHAT_ID, text="Sistem online!")
+        bot.send_message(chat_id=Config.CHAT_ID, text="Sistem online!")
         while True:
             start()
             time.sleep(5)
