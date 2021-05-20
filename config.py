@@ -22,8 +22,15 @@ header: dict = {
 params = {"mt": 0, "nr": 1}
 
 
-class Config:
+class BaseConfig:
     TELEGRAM_TOKEN: str = str(os.getenv("TELEGRAM_TOKEN"))
     BASE_API_URL: str = str(os.getenv("BASE_API_URL"))
-    CHAT_ID_TEST: str = str(os.getenv("CHAT_ID_TEST"))
     CHAT_ID: str = str(os.getenv("CHAT_ID"))
+
+
+class DevConfig:
+    pass
+
+
+class ProdConfig:
+    pass
