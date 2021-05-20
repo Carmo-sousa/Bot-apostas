@@ -11,7 +11,7 @@ class Team:
         self.off_target: str = team["off_target"]
         self.attacks: str = team["attacks"]
         self.danger_attack: str = team["danger_attacks"]
-        self.possession: str = team["possession"]
+        self.possession: int = int(team["possession"])
         self.corners: str = team["corners"]
         self.goals: str = team["goals"]
 
@@ -25,7 +25,7 @@ class Team:
         return int(self.corners) + int(self.on_target) + int(self.off_target)
 
     def is_possession(self) -> bool:
-        if self.possession >= "60":
+        if self.possession >= 60:
             return True
 
         else:
